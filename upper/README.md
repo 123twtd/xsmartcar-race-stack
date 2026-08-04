@@ -29,6 +29,10 @@ xsmartcar/data_npz/race_data.npz
 
 模型大小和 SHA-256 校验值见 [`MODELS.md`](MODELS.md)。
 
+比赛版 IPM 四点标定与 `race_data.npz` 生成方法见 [`dev_tools/ipm_calibration/README.md`](dev_tools/ipm_calibration/README.md)。RKNN 检测/分割输出与相机共享内存探针见 [`dev_tools/probes/README.md`](dev_tools/probes/README.md)。这些工具用于部署诊断，不参与三个完赛入口的正常运行。
+
+训练数据、训练脚本和完整模型训练流程正在单独整理，当前暂未公开。
+
 ## 实际运行命令
 
 ```bash
@@ -81,5 +85,5 @@ PC 没有 RKNNLite 时不能运行真实 NPU 入口；静态编译成功不代�
 
 - `run_watchdog.py`、停车辅助脚本；
 - `gai_recover` 等 AI 半成品；
-- 人员避让 v4/v5 和高志禹相关实验；
+- 未完成的人员避让 v4/v5 实验；
 - 旧 run_pipe、备份入口、旧模型、错误模型和离线探索工具。

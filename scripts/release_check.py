@@ -29,6 +29,15 @@ REQUIRED = [
     "upper/xsmartcar/mymodel/det_model/mbjc_384_int8.rknn",
     "upper/xsmartcar/mymodel/det_model/mbjc_384_int8.rknn.json",
     "upper/xsmartcar/data_npz/race_data.npz",
+    "upper/dev_tools/probes/README.md",
+    "upper/dev_tools/probes/rknn_det_model_probe.py",
+    "upper/dev_tools/probes/rknn_seg_output_probe.py",
+    "upper/dev_tools/probes/cap_arvideo_press_test.py",
+    "upper/dev_tools/probes/10000 (95).png",
+    "upper/dev_tools/ipm_calibration/README.md",
+    "upper/dev_tools/ipm_calibration/race_ipm.py",
+    "upper/dev_tools/ipm_calibration/assets/calibration_track.png",
+    "upper/dev_tools/ipm_calibration/assets/mask_input.png",
     "lower/.cproject",
     "lower/.project",
     "lower/code/protocol.c",
@@ -38,6 +47,14 @@ REQUIRED = [
 GENERATED_DIRS = {"Debug", "Release", "__pycache__", ".pytest_cache"}
 GENERATED_SUFFIXES = {".pyc", ".o", ".d", ".src", ".map", ".mdf", ".elf", ".hex", ".opt"}
 MAX_GITHUB_FILE_BYTES = 100 * 1024 * 1024
+
+NONPUBLIC_TRAINING_PATHS = {
+    "training",
+    "model_training",
+    "upper/training",
+    "upper/model_training",
+    "upper/datasets",
+}
 
 EXPECTED_SHA256 = {
     "upper/xsmartcar/mymodel/seg_model/inference_model_384_final_int8.rknn": "1456432cff629599009566758540b8ed41ac17eeaf66042eaf2b32722f0940ac",
@@ -56,6 +73,10 @@ def main() -> int:
     for relative in REQUIRED:
         if not (ROOT / relative).is_file():
             errors.append(f"缺少必需文件: {relative}")
+
+    for relative in NONPUBLIC_TRAINING_PATHS:
+        if (ROOT / relative).exists():
+            errors.append(f"模型训练整理目录不应进入公开发行: {relative}")
 
     entries = {path.name for path in (ROOT / "upper").glob("run_track*.py")}
     if entries != EXPECTED_ENTRIES:
@@ -111,11 +132,25 @@ def main() -> int:
     if "C,1,0" not in protocol_doc or "C,0,0" not in protocol_doc:
         errors.append("协议文档缺少软暂停/清锁停车语义")
 
+    ipm_calibration = read("upper/dev_tools/ipm_calibration/race_ipm.py")
+    for token in (
+        "W_CM, D_CM, NEAR_CM", "BOARD = (-7.5, 7.5, 5.0, 20.0)", "cv2.getPerspectiveTransform",
+        "np.savez", "race_data.npz",
+    ):
+        if token not in ipm_calibration:
+            errors.append(f"IPM race 标定工具缺少关键定义: {token}")
+
     lower_protocol = read("lower/code/protocol.c")
     if '"L,%f,%f,%f"' not in lower_protocol or '"C,%d,%d"' not in lower_protocol:
         errors.append("下位机协议解析与三字段 L/C 契约不一致")
 
-    for path in list((ROOT / "upper").rglob("*.py")) + list((ROOT / "lower/code").rglob("*.[ch]")) + list((ROOT / "lower/user").rglob("*.[ch]")):
+    upper_python = list((ROOT / "upper").rglob("*.py"))
+    for path in upper_python:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if "Copyright (c) 2026 清影/123twtd" not in text:
+            errors.append(f"上位机源码缺少清影/123twtd版权声明: {path.relative_to(ROOT)}")
+
+    for path in upper_python + list((ROOT / "lower/code").rglob("*.[ch]")) + list((ROOT / "lower/user").rglob("*.[ch]")):
         if "Copyright (c) 2026 高志禹" in path.read_text(encoding="utf-8", errors="replace"):
             errors.append(f"人员避让作者代码不应进入本发行: {path.relative_to(ROOT)}")
 

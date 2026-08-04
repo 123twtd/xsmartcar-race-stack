@@ -20,7 +20,7 @@
 upper/                     OrangePi 上位机
   run_track_*.py           三个实际完赛入口
   xsmartcar/               感知、IPM、循迹、UART 与 API 模块
-  dev_tools/smoke_tests/   唯一保留的实时双模型观察脚本
+  dev_tools/               IPM 标定、RKNN/相机探针与实时 smoke
   tests/                   不依赖 NPU 的检测解码单元测试
 lower/                     TC264 下位机完整工程
 docs/                      协议、验证边界和发行范围
@@ -78,17 +78,9 @@ C,run_is,speed_limit\r\n
 
 下位机只有在本地发车键已经授权后才解析控制帧。这是比赛安全门控，串口不能远程绕过。完整契约见 [`docs/PROTOCOL.md`](docs/PROTOCOL.md)。
 
-## 安全提醒
+## 使用前说明
 
-上位机会访问真实相机、NPU 和 UART。首次运行或改动参数时，应按以下顺序验证：
-
-1. PC 静态编译和单元测试；
-2. OrangePi 感知 smoke，不发送 UART；
-3. 下位机串口台架；
-4. 车辆架空轮验证；
-5. 低速空旷场地验证。
-
-本仓库的静态检查不能替代 OrangePi、TC264 和实车测试。
+三个入口均为实际完赛版本。更换相机、OrangePi 系统、RKNN runtime、TC264 工程、模型或 IPM 标定后，建议先低速确认感知结果、转向方向和串口通信，再调整速度参数。仓库 CI 只覆盖静态检查和不依赖 NPU 的单元测试。
 
 ## 版权与许可证
 
@@ -100,11 +92,11 @@ C,run_is,speed_limit\r\n
 
 仓库只包含 `<apikey>` / `<token>` 占位符。真实凭据应使用环境变量或被忽略的本地配置，禁止提交到 Git。
 
-## 已知边界
+## 模型与运行环境
 
 - 相机 WebUI、Rockchip RKNN runtime/toolkit wheel、AURIX Development Studio 不随仓库分发；
 - RKNN 模型只适用于对应的 Rockchip 运行环境和当前输入配置；
-- 本发行不包含人员避让 v4、高志禹相关实验代码；
-- 不包含比赛 Git 历史，避免携带旧凭据和无关构建产物。
+- 仓库包含完赛部署模型、RKNN 输出探针和 IPM race 标定工具；
+- 训练数据、训练脚本和完整模型训练流程正在单独整理，当前暂未公开。
 
 验证状态见 [`docs/VALIDATION.md`](docs/VALIDATION.md)。

@@ -7,14 +7,17 @@
 - `inference_model_384_final_int8.rknn`；
 - `mbjc_384_int8.rknn` 及对应 JSON；
 - `race_data.npz`；
-- 唯一统一感知 smoke；
+- IPM race 四点标定脚本及必要输入图；
+- RKNN 检测/分割输出探针和相机共享内存探针；
+- 统一实时感知 smoke；
 - 当前检测解码单元测试；
 - 下位机 `code/`、`user/`、`libraries/` 和 ADS/Eclipse 工程配置；
 - 协议、版权、第三方、构建和验证文档。
 
 ## 明确排除
 
-- 人员避让 v4/v5 和高志禹相关代码；
+- 未完成的人员避让 v4/v5 实验；
+- 尚在整理中的训练数据、训练脚本和完整模型训练流程；
 - `gai_recover`、watchdog、停车辅助和其他半成品；
 - 旧 run_pipe、缺失依赖的重构链、备份和日期副本；
 - 分割/检测备份模型、错误模型和未使用模型；

@@ -4,7 +4,7 @@ title: "XSmartCar 视觉循迹与控制栈"
 type: software
 authors:
   - name: "清影/123twtd"
-version: 1.0.0
+version: 1.0.1
 date-released: 2026-08-04
 license: GPL-3.0-or-later
 repository-code: "https://github.com/123twtd/xsmartcar-race-stack"
