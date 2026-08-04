@@ -1,0 +1,9 @@
+# XSmartCar 相机标定与 IPM 项目依赖
+# Python >= 3.10 (dataclass slots and modern type syntax are used)
+
+numpy>=1.24.0
+opencv-python>=4.8.0
+pyserial>=3.5
+requests>=2.31.0
+PyYAML>=6.0.1
+cloudpickle>=2.2.1

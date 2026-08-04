@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Runtime output
+log/
+logs/
+output/
+*.log
+
+# Local credentials
+.env
+.env.*
+!.env.example
+*.local.yaml
+*.secrets.yaml
+upper/xsmartcar/qianfan_api/qianfan_api_config.local.yaml
+
+# AURIX generated output
+lower/Debug/
+lower/Release/
+lower/External GCC - Debug/
+lower/External GCC - Release/
+*.o
+*.d
+*.src
+*.map
+*.mdf
+*.elf
+*.hex
+*.opt
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini

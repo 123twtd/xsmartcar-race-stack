@@ -1,0 +1,34 @@
+{
+  "model_file": "mbjc_384_int8.rknn",
+  "input_mode": "image_scale_factor",
+  "output_format": "decoded_boxes",
+  "label_count": 10,
+  "input_size": [
+    384,
+    384
+  ],
+  "output_shapes": [
+    [
+      1,
+      3024,
+      4
+    ],
+    [
+      1,
+      10,
+      3024
+    ]
+  ],
+  "label_list": [
+    "arch",
+    "car",
+    "go_stop",
+    "gold",
+    "human",
+    "roadsign",
+    "speedlimitsign",
+    "stone",
+    "trafficlight",
+    "zebracrossing"
+  ]
+}

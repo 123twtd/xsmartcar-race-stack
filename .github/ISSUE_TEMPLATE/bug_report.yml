@@ -1,0 +1,47 @@
+name: Bug report
+description: 报告可复现的软件、协议或硬件联调问题
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 范围
+      options:
+        - 上位机感知/NPU
+        - IPM/TRK/避让
+        - UART 协议
+        - TC264 下位机
+        - 构建/烧录
+        - 文档
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境
+      description: 板卡、系统、Python、RKNN runtime、模型、TC264 工具链与提交版本
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: 完整命令与复现步骤
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 实际结果与期望结果
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 安全确认
+      options:
+        - label: 日志中不包含 API Key、token、设备口令或其他凭据
+          required: true
+        - label: 已明确说明问题只经过静态、台架、架空轮或实车中的哪一级验证
+          required: true

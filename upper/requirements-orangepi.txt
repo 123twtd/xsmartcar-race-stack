@@ -1,0 +1,7 @@
+# Install requirements.txt first, then install the Rockchip wheel matching the
+# board's Python version and librknnrt. rknn-toolkit-lite2 is not fetched from
+# PyPI here because the vendor wheel filename is platform/version specific.
+-r requirements.txt
+
+# Example only (replace with your actual vendor wheel):
+# pip install ./rknn_toolkit_lite2-2.3.2-cp310-cp310-linux_aarch64.whl

@@ -1,0 +1,14 @@
+# AURIX/Eclipse generated build outputs
+/Debug/
+/Release/
+/External GCC - Debug/
+/External GCC - Release/
+
+*.o
+*.d
+*.src
+*.map
+*.mdf
+*.elf
+*.hex
+*.opt

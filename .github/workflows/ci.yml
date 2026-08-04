@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+          cache-dependency-path: upper/requirements.txt
+
+      - name: Check release contents
+        run: python scripts/release_check.py
+
+      - name: Install PC dependencies
+        run: python -m pip install -r upper/requirements.txt
+
+      - name: Compile actual race entries
+        run: >-
+          python -m py_compile
+          upper/run_track_include_fork.py
+          upper/run_track_include_fork_gai.py
+          upper/run_track_include_fork_avoid_v3.py
+          upper/xsmartcar/qianfan_api/qianfan_model_api_post.py
+
+      - name: Run unit tests
+        run: python -m unittest discover -s upper/tests -p "test_*.py" -v
