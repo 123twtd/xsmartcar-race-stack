@@ -40,6 +40,7 @@ REQUIRED = [
     "upper/dev_tools/ipm_calibration/assets/mask_input.png",
     "lower/.cproject",
     "lower/.project",
+    "lower/COPYRIGHT.md",
     "lower/code/protocol.c",
     "lower/user/cpu0_main.c",
 ]
@@ -126,6 +127,11 @@ def main() -> int:
     if "GNU GENERAL PUBLIC LICENSE" not in license_text or "Version 3" not in license_text:
         errors.append("LICENSE 不是完整 GPLv3 文本")
 
+    copyright_text = read("COPYRIGHT.md")
+    for token in ("西北师范大学瞬之队", "清影/123twtd提出并审查", "高志禹完成具体代码实现"):
+        if token not in copyright_text:
+            errors.append(f"版权与贡献说明缺少关键信息: {token}")
+
     protocol_doc = read("docs/PROTOCOL.md")
     if "L,near_offset,near_yaw,det_offset_cm" not in protocol_doc:
         errors.append("协议文档缺少三字段 L 帧")
@@ -150,9 +156,16 @@ def main() -> int:
         if "Copyright (c) 2026 清影/123twtd" not in text:
             errors.append(f"上位机源码缺少清影/123twtd版权声明: {path.relative_to(ROOT)}")
 
-    for path in upper_python + list((ROOT / "lower/code").rglob("*.[ch]")) + list((ROOT / "lower/user").rglob("*.[ch]")):
+    for path in upper_python:
         if "Copyright (c) 2026 高志禹" in path.read_text(encoding="utf-8", errors="replace"):
             errors.append(f"人员避让作者代码不应进入本发行: {path.relative_to(ROOT)}")
+
+    shared_lower = list((ROOT / "lower/code").rglob("*.[ch]"))
+    shared_lower += [ROOT / "lower/user/cpu0_main.c", ROOT / "lower/user/cpu1_main.c", ROOT / "lower/user/isr.c"]
+    for path in shared_lower:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if "Copyright (c) 2026 清影/123twtd" not in text or "Copyright (c) 2026 高志禹" not in text:
+            errors.append(f"下位机混合成果缺少双方版权声明: {path.relative_to(ROOT)}")
 
     if errors:
         print("release check failed:")

@@ -42,7 +42,7 @@ C,run_is,speed_limit\r\n
 
 ## 版权和第三方许可证
 
-项目原创内容版权归清影/123twtd所有，详见 `COPYRIGHT.md`。Infineon 与 SEEKFREE 文件保留原版权头和许可证，未作删改。
+下位机包含清影/123twtd保留的原始模块和参数，以及高志禹重新编写的当前实现；限幅、按键和中断逻辑由清影/123twtd提出并审查，由高志禹实现。详见 [`COPYRIGHT.md`](COPYRIGHT.md)。Infineon 与 SEEKFREE 文件保留原版权头和许可证，未作删改。
 
 ## 验证边界
 

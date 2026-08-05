@@ -1,4 +1,9 @@
 /* Copyright (c) 2026 清影/123twtd */
+/* Copyright (c) 2026 高志禹 */
+/*
+ * 按键交互与发车控制逻辑由清影/123twtd提出并审查，当前比赛版本的具体实现由高志禹完成。
+ */
+
 #include "key.h"
 #include "buzzer.h"
 #include "pid.h"

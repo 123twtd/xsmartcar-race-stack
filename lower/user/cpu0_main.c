@@ -1,4 +1,9 @@
 /* Copyright (c) 2026 清影/123twtd */
+/* Copyright (c) 2026 高志禹 */
+/*
+ * 本文件中的限幅与中断控制方案由清影/123twtd提出并审查，当前比赛版本的具体实现由高志禹完成。
+ */
+
 #include "zf_common_headfile.h"
 #include "encoder_speed.h"
 #include "pid.h"

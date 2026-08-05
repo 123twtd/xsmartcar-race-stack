@@ -1,4 +1,5 @@
 /* Copyright (c) 2026 清影/123twtd */
+/* Copyright (c) 2026 高志禹 */
 #include "tft_ui.h"
 #include "zf_device_tft180.h"
 #include "zf_common_headfile.h"

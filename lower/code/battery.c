@@ -1,4 +1,5 @@
 /* Copyright (c) 2026 清影/123twtd */
+/* Copyright (c) 2026 高志禹 */
 #include "battery.h"
 
 void Battery_Init(void)
